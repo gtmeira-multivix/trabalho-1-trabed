@@ -8,76 +8,61 @@ typedef struct no {
 } No;
 
 struct pilha {
-  No *primeiro;
+  No *comeco;
 };
 
 Pilha* pilha_criar() {
 	Pilha *p = (Pilha *)malloc(sizeof(Pilha));
-    p->primeiro = NULL;
-    return p;
-}
+    p->comeco = NULL;
+    return p;}
+
 
 void pilha_push(Pilha *p, Token t) {
 	No *tmp = (No *)malloc(sizeof(No));
     tmp->token = t;
+    tmp->prox = p->comeco;
+    p->comeco = tmp;}
 
-    tmp->prox = p->primeiro;
-    p->primeiro = tmp;
-}
 
 Token pilha_pop(Pilha *p) {
-    if(p->primeiro == NULL){
-        printf("\n\n\n ### Expressao invalida (pop), calculo incompleto;");
-        return;
-    }
-
-	Token tmpToken = p->primeiro->token;
-    No *tmp = p->primeiro;
-
-    p->primeiro = p->primeiro->prox;
+    if(p->comeco == NULL){
+        return;}
+	Token tmpToken = p->comeco->token;
+    No *tmp = p->comeco;
+    p->comeco = p->comeco->prox;
     free(tmp);
+    return(tmpToken);}
 
-    return(tmpToken);
-}
 
-Token pilha_primeiro(Pilha *p) {
-    if(p->primeiro == NULL){
-        printf("\n\n ### Expressao invalida (primeiro), calculo incompleto;");
-        return;
-    }
-    Token tmpToken = p->primeiro->token;
-	return(tmpToken);
-}
+Token pilha_comeco(Pilha *p) {
+    if(p->comeco == NULL){
+        return;}
+    Token tmpToken = p->comeco->token;
+	return(tmpToken);}
+
 
 int pilha_vazia(Pilha *p) {
-	if (p->primeiro == NULL){
-        return(1);
-    }
+	if (p->comeco == NULL){
+        return(1);}
     else{
-        return(0);
-    }
-}
+        return(0);}}
+
 
 void pilha_destruir(Pilha *p) {
-	No *tmp = p->primeiro;
+	No *tmp = p->comeco;
     while(tmp != NULL){
         No *excluir = tmp;
         tmp = tmp->prox;
-        free(excluir);
-    }
-    free(p);
-}
+        free(excluir);}
+        free(p);}
+
 
 void pilha_imprimir(Pilha *p) {
-	if(p->primeiro == NULL){
-        printf("\n\n ### Expressao invalida (impressao), calculo incompleto;");
-        return;
-    }
-    No *tmp = p->primeiro;
+	if(p->comeco == NULL){
+        return;}
+    No *tmp = p->comeco;
     while(tmp != NULL){
         Token tmpToken = tmp->token;
         token_imprimir(tmpToken);
-        tmp = tmp->prox;
-    }
-}
+        tmp = tmp->prox;}}
 

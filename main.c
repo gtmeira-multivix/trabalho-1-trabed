@@ -37,13 +37,13 @@ char opcaoMenu[100];
                     if(pilha_vazia(pilhaOp))
 					{cima.precedencia = 0;
                         continue;}
-                    cima = pilha_primeiro(pilhaOp);}
+                    cima = pilha_comeco(pilhaOp);}
                 pilha_push(pilhaOp, tmpToken);
-                cima = pilha_primeiro(pilhaOp);
+                cima = pilha_comeco(pilhaOp);
                 break;
             case OPENPRT:
                 pilha_push(pilhaOp, tmpToken);
-                cima = pilha_primeiro(pilhaOp);
+                cima = pilha_comeco(pilhaOp);
                 break;
             case CLOSEPRT:
                 if (pilha_vazia(pilhaOp) && fila_vazia(filaT)){
@@ -51,7 +51,7 @@ char opcaoMenu[100];
                     return 0;}
                 while (cima.tipo != OPENPRT)
 				{fila_add(filaSaida, pilha_pop(pilhaOp));
-                    cima = pilha_primeiro(pilhaOp);
+                    cima = pilha_comeco(pilhaOp);
                     if (pilha_vazia(pilhaOp))
 					{printf("\n ### Expressao invalida.\n");
                         return 0;}
